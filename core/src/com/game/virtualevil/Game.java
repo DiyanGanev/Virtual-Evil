@@ -18,7 +18,6 @@ public class Game extends ApplicationAdapter {
 	private FontManager fontManager;
 	private EntityManager entityManager;
 	private MapManager mapManager;
-    //private Map map;
 	
 	private final boolean testing = true;
 	float delta;
@@ -85,6 +84,10 @@ public class Game extends ApplicationAdapter {
 	}
 
 	public Map getMap() {
-		return mapManager.getMap();
+		return mapManager.getCurrentMap();
+	}
+	
+	public MapManager getMapManager() {
+		return mapManager;
 	}
 }

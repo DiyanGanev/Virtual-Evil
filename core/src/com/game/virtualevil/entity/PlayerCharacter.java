@@ -13,16 +13,12 @@ import com.game.virtualevil.utility.ability.Ability;
 
 public class PlayerCharacter extends GameCharacter{
 
-	
-
 	public PlayerCharacter(Game game) {
 		super(game);
 		
-		game.getMap().getHeight();
 		game.getCamera().position.set(game.getCamera().viewportWidth,
 				game.getMap().getTotalHeight() - game.getCamera().viewportHeight, 0);
 		game.getCamera().update();
-        
         
 		x = game.getCamera().viewportWidth;
 		y = game.getMap().getTotalHeight() - game.getCamera().viewportHeight;
@@ -30,8 +26,8 @@ public class PlayerCharacter extends GameCharacter{
 		frames = TextureRegion.split(spriteSheet,
 				spriteSheet.getWidth() / 3, spriteSheet.getHeight() / 4);
 		animation = new Animation(0.15f, frames[0]);
-		collisionBoxVector = new Vector2(spriteSheet.getWidth()/3 - 5,
-				spriteSheet.getHeight()/4 - 5);
+		collisionBoxVector = new Vector2(spriteSheet.getWidth()/3 - 6,
+				spriteSheet.getHeight()/4 - 6);
 		
 		abilities.add(0, new Ability("SPRINT", this));
 	}
@@ -61,7 +57,7 @@ public class PlayerCharacter extends GameCharacter{
 					collisionBoxVector.x, collisionBoxVector.y);
 			if (!game.getMap().collidesWithTerrain(colRect)) {
 				y = futureY;
-				direction = 3;
+				direction = Direction.UP;
 				playerMoved = true;
 				game.getCamera().translate(0, moveSpeed * delta);
 			}
@@ -71,7 +67,7 @@ public class PlayerCharacter extends GameCharacter{
 					collisionBoxVector.x, collisionBoxVector.y);
 			if (!game.getMap().collidesWithTerrain(colRect)) {
 				y = futureY;
-				direction = 0;
+				direction = Direction.DOWN;
 				playerMoved = true;
 				game.getCamera().translate(0, -moveSpeed * delta);
 			}
@@ -82,7 +78,7 @@ public class PlayerCharacter extends GameCharacter{
 					collisionBoxVector.x, collisionBoxVector.y);
 			if (!game.getMap().collidesWithTerrain(colRect)) {
 				x = futureX;
-				direction = 1;
+				direction = Direction.LEFT;
 				playerMoved = true;
 				game.getCamera().translate(-moveSpeed * delta, 0);
 			}
@@ -92,7 +88,7 @@ public class PlayerCharacter extends GameCharacter{
 					collisionBoxVector.x, collisionBoxVector.y);
 			if (!game.getMap().collidesWithTerrain(colRect)) {
 				x = futureX;
-				direction = 2;
+				direction = Direction.RIGHT;
 				playerMoved = true;
 				game.getCamera().translate(moveSpeed * delta, 0);
 			}
@@ -124,5 +120,9 @@ public class PlayerCharacter extends GameCharacter{
 			debugFont.draw(batch, "dir: " + direction, cameraOffsetX + 5f,
 					cameraOffsetY + Gdx.graphics.getHeight() - 35f);
 		}
+	}
+
+	public Rectangle getCollisionRectangle() {
+		return new Rectangle(x + 3, y - 3, collisionBoxVector.x, collisionBoxVector.y);
 	}
 }
