@@ -11,10 +11,8 @@ public class EntityManager {
 	private PlayerCharacter pc;
 	private ArrayList<EnemyCharacter> enemiesList = new ArrayList<>();
 	private ArrayList<Bullet> BulletOnField = new ArrayList<>();
-	// private PlayGameState playGameState;
 
 	public EntityManager(PlayGameState playGameState) {
-		// this.playGameState = playGameState;
 		pc = new PlayerCharacter(playGameState);
 		enemiesList.add(new EnemyCharacter(playGameState, 1000, 3000));
 	}
@@ -25,7 +23,7 @@ public class EntityManager {
 			enemy.update(delta);
 		}
 		for (Bullet i : BulletOnField) {
-			i.Move();
+			i.move();
 		}
 	}
 
@@ -35,7 +33,7 @@ public class EntityManager {
 			enemy.draw(batch);
 		}
 		for (Bullet i : BulletOnField) {
-			i.Draw(batch);
+			i.draw(batch);
 		}
 	}
 	public void AddBullet(Bullet NewBullet)
